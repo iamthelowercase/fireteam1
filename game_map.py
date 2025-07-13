@@ -16,4 +16,4 @@ class GameMap:
 		# that is a gnarly inlined return but it's so good that it *is* inlined
 	
 	def render(self, console: Console) -> None:
-		console.tiles_rgb[0:self.width, 0:self.height] = self.tiles["dark"]
+		console.rgb[0:self.width, 0:self.height] = self.tiles["dark"]
