@@ -6,3 +6,5 @@ __pycache__/*
 pyvenv.cfg
 
 *.kate-swp
+
+github_personal*
