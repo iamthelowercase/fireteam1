@@ -1,3 +1,7 @@
+# Next Steps
+"Just plan out the next few baby steps"
+
+# Future
 ## ROOMS AND FLOORS
 * Create multiple types of floor generation systems
     * including a BSP-based floor generator
@@ -6,6 +10,7 @@
 * come up with multiple types of "non-rooms" (CF tunnels)
     * implement generation functions for them
     * refactor the basic tunnel function to dig really simple tunnels and one or more caller functions to use it
+* Adjust the tunnel generation to eliminate those annoying "outside stair steps" on width-2 tunnels
 
 ## UI
 * figure out how to handle control of multiple characters in a non-turn-based system

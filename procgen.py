@@ -91,6 +91,8 @@ def tunnel_between(
 	x1, y1 = start
 	x2, y2 = end
 	
+	
+	
 	if random.random() < 0.5:
 		# end up moving horizontally, then vertically
 		corner_x, corner_y = x2, y1
@@ -98,10 +100,59 @@ def tunnel_between(
 		# end up moving vertically, then horizontally
 		corner_x, corner_y = x1, y2
 	
+	die = random.random() # set a temp var to a random value
+	
+	if die < 0.15: # start comparing the temp var to decide what size tunnel to dig
+		# width 1 tunnel
+		
+		for x,y in simple_tunnel((x1, y1), (corner_x, corner_y)):
+			yield x,y
+		for x,y in simple_tunnel((corner_x, corner_y), (x2, y2)):
+			yield x,y
+		
+	elif die < 0.5:
+		# width 2 tunnel, type 1
+		for x,y in simple_tunnel((x1, y1), (corner_x, corner_y)):
+			yield x,y
+		for x,y in simple_tunnel((corner_x, corner_y), (x2, y2)):
+			yield x,y
+		for x,y in simple_tunnel((x1 - 1, y1 - 1), (corner_x - 1, corner_y - 1)):
+			yield x,y
+		for x,y in simple_tunnel((corner_x - 1, corner_y - 1), (x2 - 1, y2 - 1)):
+			yield x,y
+	elif die < 0.85:
+		# width 2 tunnel, type 2
+		for x,y in simple_tunnel((x1, y1), (corner_x, corner_y)):
+			yield x,y
+		for x,y in simple_tunnel((corner_x, corner_y), (x2, y2)):
+			yield x,y
+		for x,y in simple_tunnel((x1 + 1, y1 + 1), (corner_x + 1, corner_y + 1)):
+			yield x,y
+		for x,y in simple_tunnel((corner_x + 1, corner_y + 1), (x2 + 1, y2 + 1)):
+			yield x,y
+	else:
+		# width 3 tunnel
+		for x,y in simple_tunnel((x1 - 1, y1 - 1), (corner_x - 1, corner_y - 1)):
+			yield x,y
+		for x,y in simple_tunnel((corner_x - 1, corner_y - 1), (x2 - 1, y2 - 1)):
+			yield x,y
+		for x,y in simple_tunnel((x1, y1), (corner_x, corner_y)):
+			yield x,y
+		for x,y in simple_tunnel((corner_x, corner_y), (x2, y2)):
+			yield x,y
+		for x,y in simple_tunnel((x1 + 1, y1 + 1), (corner_x + 1, corner_y + 1)):
+			yield x,y
+		for x,y in simple_tunnel((corner_x + 1, corner_y + 1), (x2 + 1, y2 + 1)):
+			yield x,y
+	
+
+def simple_tunnel(
+	start: Tuple[int,int], end: Tuple[int,int]
+	) -> Iterator[Tuple[int,int]]:
+	"""Return simple straight tunnel between these two points."""
+	x1, y1 = start
+	x2, y2 = end
+	
 	# generate the coordinates for this tunnel
-	for x, y in tcod.los.bresenham((x1, y1), (corner_x, corner_y)).tolist():
+	for x, y in tcod.los.bresenham((x1, y1), (x2, y2)).tolist():
 		yield x, y
-	for x, y in tcod.los.bresenham((corner_x, corner_y), (x2, y2)):
-		yield x, y
-
-
