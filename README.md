@@ -7,7 +7,7 @@ It is *not*:
 * A turn-based strategy game.
 * A real-time roguelike.
 
-For historical reasons, README files typically contain installation guidlines.  You may want [about.md](./about.md) instead.
+For historical reasons, README files typically contain installation guidlines.  You may want [About.md](./About.md) instead.
 
 # Origins
 Fireteam! started life as part of [r/roguelikedev](https://www.reddit.com/r/roguelikedev/)'s 2025 [complete roguelike tutorial](https://rogueliketutorials.com/tutorials/tcod/v2/).  Parts of the code are still (lightly updated, for newer versions) directly from the tutorial.
