@@ -11,3 +11,12 @@
 * figure out how to handle control of multiple characters in a non-turn-based system
     * there are multiple possible control schemes.  Think of more than one, then compare them
 * figure out how to *display* control of multiple characters
+
+### UI AND WINDOWS
+#### Goals
+* Support maps that are larger than the window (for playing large maps on small windows)
+* Support maps that are smaller than the window (for playing normal/small maps on large windows/monitors)
+* Support automatically scaling the tileset when the window is resized
+* Support setting a "base scaling" for the tileset independently of the window size
+* Support scaling the tileset independently of the window size
+* "Sticky" the UI to the window independently of the map
