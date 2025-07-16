@@ -8,3 +8,4 @@ pyvenv.cfg
 *.kate-swp
 
 github_personal*
+sync_copy.sh
