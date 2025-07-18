@@ -1,6 +1,9 @@
 # Next Steps
 "Just plan out the next few baby steps"
 
+## Study
+* Play around with sets in the interactive interpreter.  Can you append to sets?  Are they accessed with a normal index like lists are?
+
 # Future
 ## ROOMS AND FLOORS
 * Create multiple types of floor generation systems
@@ -16,6 +19,7 @@
 * figure out how to handle control of multiple characters in a non-turn-based system
     * there are multiple possible control schemes.  Think of more than one, then compare them
 * figure out how to *display* control of multiple characters
+* Figure out how to uncouple *UI* display from *map* display
 
 ### UI AND WINDOWS
 #### Goals
