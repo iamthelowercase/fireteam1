@@ -2,11 +2,13 @@
 ## dev: remember to activate the venv for this to work!
 ## (``source ./bin/activate'')
 
+import copy
 import tcod
 
 from actions import EscapeAction, MovementAction
 from input_handlers import EventHandler
 from entity import Entity
+import entity_factories
 from engine import Engine
 from procgen import generate_dungeon
 
@@ -20,6 +22,8 @@ def main() -> None:
     room_max_size = 15
     room_min_size = 9
     max_rooms = 30
+    
+    max_monsters_per_room = 3
 
 
     tileset = tcod.tileset.load_tilesheet(
@@ -28,7 +32,7 @@ def main() -> None:
 
     event_handler = EventHandler()
 
-    player = Entity(int(screen_width / 2), int(screen_height / 2), "@", (255, 255, 255))
+    player = copy.deepcopy(entity_factories.player)
 
     game_map = generate_dungeon(
         max_rooms=max_rooms,
@@ -36,6 +40,7 @@ def main() -> None:
         room_max_size=room_max_size,
         map_width=map_width,
         map_height=map_height,
+        max_monsters_per_room=max_monsters_per_room,
         player=player
     )
     
