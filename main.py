@@ -12,12 +12,21 @@ import entity_factories
 from engine import Engine
 from procgen import generate_dungeon
 
+from game_map import GameMap # added for testing map purposes
+
 def main() -> None:
-    screen_width = 120
-    screen_height = 68
-    
-    map_width = 120
-    map_height = 68
+#     screen_width = 120
+#     screen_height = 68
+#     
+#     map_width = 120
+#     map_height = 68
+#     
+
+    # testing values for screen and map size
+    screen_width = 70
+    screen_height = 40
+    map_width = 70
+    map_height = 40
     
     room_max_size = 15
     room_min_size = 9
@@ -32,19 +41,43 @@ def main() -> None:
 
     event_handler = EventHandler()
 
-    player = copy.deepcopy(entity_factories.player)
-
-    game_map = generate_dungeon(
-        max_rooms=max_rooms,
-        room_min_size=room_min_size,
-        room_max_size=room_max_size,
-        map_width=map_width,
-        map_height=map_height,
-        max_monsters_per_room=max_monsters_per_room,
-        player=player
-    )
+    # player0 = copy.deepcopy(entity_factories.player_character_1)
+    player0 = copy.deepcopy(entity_factories.player)
+    player0.x = int(screen_width / 2)
+    # player0.x = 35
+    player0.y = int(screen_height / 2) # forgot to cast to an integer!
+    player0.char = "1"
+    player0.name = "Zasta"
     
-    engine = Engine(event_handler=event_handler, game_map=game_map, player=player)
+    player1 = copy.deepcopy(entity_factories.player)
+    player1.x = int(screen_width / 3)
+    player1.y = int(screen_height /3)
+    player1.char = "2"
+    player1.name = "Malarky"
+    
+    player2 = copy.deepcopy(entity_factories.player)
+    player2.x = int((screen_width / 3) + (screen_width / 2))
+    player2.y = int((screen_height / 3) + (screen_height / 2))
+    player2.char = "3"
+    player2.name = "Beep"
+    
+    player_characters = {player0, player1, player2}
+
+    # game_map = generate_dungeon(
+    #     max_rooms=max_rooms,
+    #     room_min_size=room_min_size,
+    #     room_max_size=room_max_size,
+    #     map_width=map_width,
+    #     map_height=map_height,
+    #     max_monsters_per_room=max_monsters_per_room,
+    #     player=player0,
+    #     player_characters=player_characters,
+    # )
+    
+    # generate empty testing map
+    game_map = GameMap(map_width, map_height, entities=player_characters)
+    
+    engine = Engine(event_handler=event_handler, game_map=game_map, player=player0, player_characters=player_characters)
 
     with tcod.context.new(
         columns=screen_width,

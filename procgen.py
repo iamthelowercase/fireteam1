@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 import random
-from typing import Iterator, Tuple, List, TYPE_CHECKING
+from typing import Iterator, Iterable, Tuple, List, TYPE_CHECKING
 
 import tcod
 
@@ -51,6 +51,7 @@ def generate_dungeon(
 	map_height: int,
 	max_monsters_per_room: int,
 	player: Entity,
+	player_characters: Iterable[Entity],
 ) -> GameMap:
 	"""Generate a new dungeon map"""
 	dungeon = GameMap(map_width, map_height, entities=[player])
@@ -76,7 +77,10 @@ def generate_dungeon(
 		
 		if len(rooms) == 0:
 			# the first room, where the player starts
-			player.x, player.y = new_room.center
+			# player.x, player.y = new_room.center
+			for p in player_characters:
+				p.x = random.randint(new_room.x1 + 1, new_room.x2 -1)
+				p.y = random.randint(new_room.y1 + 1, new_room.y2 - 1)
 		else: # all rooms after the first
 			# dig a tunnel to connect this room and the previous one
 			for x,y in tunnel_between(rooms[-1].center, new_room.center):
@@ -179,3 +183,16 @@ def simple_tunnel(
 	# generate the coordinates for this tunnel
 	for x, y in tcod.los.bresenham((x1, y1), (x2, y2)).tolist():
 		yield x, y
+
+# def test_dungeon(
+# 	max_rooms: int,
+# 	room_min_size: int,
+# 	room_max_size: int,
+# 	map_width: int,
+# 	map_height: int,
+# 	max_monsters_per_room: int,
+# 	player: Entity,
+# 	player_characters: Iterable[Entity],
+# ) -> GameMap:
+# 	"""Generate a fixed dungeon specifically for testing purposes"""
+# 	

@@ -12,7 +12,8 @@ class GameMap:
 	def __init__(self, width: int, height: int, entities: Iterable[Entity] = ()):
 		self.width, self.height = width, height # remember to change this line if you change the ordering on the console
 		self.entities = set(entities)
-		self.tiles = np.full((width, height), fill_value=tile_types.wall, order="F")
+		# self.tiles = np.full((width, height), fill_value=tile_types.wall, order="F")
+		self.tiles = np.full((width, height), fill_value=tile_types.floor, order="F") #testing with an empty dungeon
 		
 		self.visible = np.full((width, height), fill_value=False, order="F")
 			# tiles the player can see currently

@@ -1,7 +1,7 @@
 ## FIRETEAM! ##
 A Roguelike
 
-Fireteam! is (going to be) a classic-ish roguelike with multiple player characters in play simultaneously.
+Fireteam! is (going to be) a classic-ish roguelike with multiple characters controlled by the player in play simultaneously.
 
 It is *not*:
 * A turn-based strategy game.

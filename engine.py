@@ -10,11 +10,12 @@ from game_map import GameMap
 
 
 class Engine:
-    def __init__(self, event_handler: EventHandler, game_map: GameMap, player: Entity):
+    def __init__(self, event_handler: EventHandler, game_map: GameMap, player: Entity, player_characters: [Entity]):
         self.event_handler = event_handler
         self.player = player
         self.game_map = game_map
         self.update_fov()
+        self.player_characters = player_characters
 
     def handle_events(self, events: Iterable[Any]) -> None:
         for event in events:

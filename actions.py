@@ -57,7 +57,7 @@ class MeleeAction(ActionWithDirection):
 		print(f"You kick the {target.name}, much to its annoyance!")
 		
 class BumpAction(ActionWithDirection):
-	def perform (self, engine: Engine, entity: Entity) -> None:
+	def perform(self, engine: Engine, entity: Entity) -> None:
 		dest_x = entity.x + self.dx
 		dest_y = entity.y + self.dy
 		

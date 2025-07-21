@@ -13,6 +13,7 @@ class EventHandler(tcod.event.EventDispatch[Action]):
 		
 		key = event.sym
 		
+		# numberpad movement keys
 		if key == tcod.event.KeySym.KP_7:
 			action = BumpAction(dx=-1, dy=-1)
 		elif key == tcod.event.KeySym.KP_8:
@@ -30,6 +31,9 @@ class EventHandler(tcod.event.EventDispatch[Action]):
 			action = BumpAction(dx=0, dy=1)
 		elif key == tcod.event.KeySym.KP_3:
 			action = BumpAction(dx=1, dy=1)
+
+		# switch controlled character
+		
 
 		elif key == tcod.event.KeySym.ESCAPE:
 			action = EscapeAction()
