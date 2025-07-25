@@ -1,5 +1,7 @@
 from __future__ import annotations
+
 from typing import Iterable, Optional, TYPE_CHECKING
+
 import numpy as np
 from tcod.console import Console
 
@@ -7,22 +9,34 @@ import tile_types
 
 if TYPE_CHECKING:
 	from entity import Entity
+	from engine import Engine
 
 class GameMap:
-	def __init__(self, width: int, height: int, entities: Iterable[Entity] = ()):
+	def __init__(
+		self, engine: Engine, width: int, height: int, entities: Iterable[Entity] = ()
+	):
+		self.engine = engine
 		self.width, self.height = width, height # remember to change this line if you change the ordering on the console
 		self.entities = set(entities)
 		# self.tiles = np.full((width, height), fill_value=tile_types.wall, order="F")
 		self.tiles = np.full((width, height), fill_value=tile_types.floor, order="F") #testing with an empty dungeon
 		
-		self.visible = np.full((width, height), fill_value=False, order="F")
-			# tiles the player can see currently
-		self.explored = np.full((width, height), fill_value=False, order="F")
-			# tiles the player has seen before, but can't see currently
+		self.visible = np.full(
+			(width, height), fill_value=False, order="F"
+		) # tiles the player can see currently
+		self.explored = np.full(
+			(width, height), fill_value=False, order="F"
+		) # tiles the player has seen before, but can't see currently
 	
-	def get_blocking_entity_at_location(self, location_x: int, location_y: int) -> Optional[Entity]:
+	def get_blocking_entity_at_location(
+		self, location_x: int, location_y: int
+	) -> Optional[Entity]:
 		for entity in self.entities:
-			if entity.blocks_movement and entity.x == location_x and entity.y == location_y:
+			if (
+				entity.blocks_movement 
+				and entity.x == location_x 
+				and entity.y == location_y
+			):
 				return entity
 		return None
 	

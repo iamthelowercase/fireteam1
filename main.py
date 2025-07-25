@@ -6,7 +6,6 @@ import copy
 import tcod
 
 from actions import EscapeAction, MovementAction
-from input_handlers import EventHandler
 from entity import Entity
 import entity_factories
 from engine import Engine
@@ -39,7 +38,6 @@ def main() -> None:
         "assets/dejavu10x10_gs_tc.png", 32, 8, tcod.tileset.CHARMAP_TCOD
     )
 
-    event_handler = EventHandler()
 
     # player0 = copy.deepcopy(entity_factories.player_character_1)
     player0 = copy.deepcopy(entity_factories.player)
@@ -63,21 +61,26 @@ def main() -> None:
     
     player_characters = {player0, player1, player2}
 
-    # game_map = generate_dungeon(
+    engine = Engine(starting_player=player0, player_characters=player_characters)
+    
+    # engine.game_map = generate_dungeon(
     #     max_rooms=max_rooms,
     #     room_min_size=room_min_size,
     #     room_max_size=room_max_size,
     #     map_width=map_width,
     #     map_height=map_height,
     #     max_monsters_per_room=max_monsters_per_room,
-    #     player=player0,
-    #     player_characters=player_characters,
+    #     engine=engine,
+    # #     player=player0,
+    # #     player_characters=player_characters,
     # )
     
     # generate empty testing map
-    game_map = GameMap(map_width, map_height, entities=player_characters)
+    engine.game_map = GameMap(engine, map_width, map_height, entities=player_characters)
     
-    engine = Engine(event_handler=event_handler, game_map=game_map, player=player0, player_characters=player_characters)
+    engine.update_fov() #update the FOV for the first time ever 
+    
+    # engine = Engine(event_handler=event_handler, game_map=game_map, player=player0, player_characters=player_characters)
 
     with tcod.context.new(
         columns=screen_width,
@@ -90,8 +93,7 @@ def main() -> None:
         while True:
             engine.render(console=root_console, context=context)
 
-            events = tcod.event.wait()
-            engine.handle_events(events)
+            engine.event_handler.handle_events()
 
 
 if __name__ == "__main__":

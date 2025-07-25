@@ -1,7 +1,10 @@
 # class for containing all procedural-generation-specific code
 # will eventually contain multiple floor generators
 
+# TODO: update as per tutorial part 6 https://rogueliketutorials.com/tutorials/tcod/v2/part-6/
+
 from __future__ import annotations
+
 import random
 from typing import Iterator, Iterable, Tuple, List, TYPE_CHECKING
 
@@ -12,7 +15,7 @@ from game_map import GameMap
 import tile_types
 
 if TYPE_CHECKING:
-	from entity import Entity
+	from engine import Engine
 
 class RectangularRoom:
 	# defines a rectangular room, starting from the top left corner
@@ -50,11 +53,11 @@ def generate_dungeon(
 	map_width: int,
 	map_height: int,
 	max_monsters_per_room: int,
-	player: Entity,
-	player_characters: Iterable[Entity],
+	engine: Engine,
 ) -> GameMap:
 	"""Generate a new dungeon map"""
-	dungeon = GameMap(map_width, map_height, entities=[player])
+	player = engine.player
+	dungeon = GameMap(engine, map_width, map_height, entities=[player])
 	
 	rooms: List[RectangularRoom] = []
 	
@@ -77,10 +80,7 @@ def generate_dungeon(
 		
 		if len(rooms) == 0:
 			# the first room, where the player starts
-			# player.x, player.y = new_room.center
-			for p in player_characters:
-				p.x = random.randint(new_room.x1 + 1, new_room.x2 -1)
-				p.y = random.randint(new_room.y1 + 1, new_room.y2 - 1)
+			player.place(*new_room.center, dungeon)
 		else: # all rooms after the first
 			# dig a tunnel to connect this room and the previous one
 			for x,y in tunnel_between(rooms[-1].center, new_room.center):
