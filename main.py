@@ -78,6 +78,10 @@ def main() -> None:
     # generate empty testing map
     engine.game_map = GameMap(engine, map_width, map_height, entities=player_characters)
     
+    player0.gamemap = engine.game_map
+    player1.gamemap = engine.game_map
+    player2.gamemap = engine.game_map
+    
     engine.update_fov() #update the FOV for the first time ever 
     
     # engine = Engine(event_handler=event_handler, game_map=game_map, player=player0, player_characters=player_characters)
